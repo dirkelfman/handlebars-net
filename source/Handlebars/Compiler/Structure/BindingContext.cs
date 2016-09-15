@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace HandlebarsDotNet.Compiler
 {
-    internal class BindingContext
+    public  class BindingContext
     {
         private readonly object _value;
         private readonly BindingContext _parent;

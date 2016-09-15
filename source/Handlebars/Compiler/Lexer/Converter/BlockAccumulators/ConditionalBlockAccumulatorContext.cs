@@ -24,6 +24,8 @@ namespace HandlebarsDotNet.Compiler
                         "Tried to convert {0} expression to conditional block", _blockName));
             }
             _testType = _blockName == "if";
+            HandlebarsDotNet.Compiler.PathExpression exp = ((HelperExpression)startingNode).Arguments.First() as HandlebarsDotNet.Compiler.PathExpression;
+           
             var argument = HandlebarsExpression.Boolish(((HelperExpression)startingNode).Arguments.Single());
             _currentCondition = _testType ? (Expression)argument : Expression.Not(argument);
         }

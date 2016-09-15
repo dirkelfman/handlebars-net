@@ -146,10 +146,14 @@ namespace HandlebarsDotNet.Compiler
             {
                 if (segment == "..")
                 {
-                    context = context.ParentContext;
-                    if (context == null)
+                    
+                    if (context.ParentContext != null)
                     {
-                        throw new HandlebarsCompilerException("Path expression tried to reference parent of root");
+                        context = context.ParentContext;
+                        
+                    }else
+                    {
+                        // throw new HandlebarsCompilerException("Path expression tried to reference parent of root");
                     }
                     instance = context.Value;
                 }
@@ -207,6 +211,10 @@ namespace HandlebarsDotNet.Compiler
 
         private object AccessMember(object instance, string memberName)
         {
+            if ( instance == null )
+            {
+                return memberName;
+            }
             var enumerable = instance as IEnumerable<object>;
             if (enumerable != null)
             {

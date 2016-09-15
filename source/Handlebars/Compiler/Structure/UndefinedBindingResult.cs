@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace HandlebarsDotNet.Compiler
 {
     [DebuggerDisplay("undefined")]
-    internal class UndefinedBindingResult
+    public  class UndefinedBindingResult
     {
         public UndefinedBindingResult()
         {

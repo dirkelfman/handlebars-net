@@ -54,7 +54,14 @@ namespace HandlebarsDotNet.Compiler
         {
             if (_accumulatedBody == null)
             {
-                _accumulatedBody = Expression.Block(_body);
+                if ( _body.Count ==0 )
+                {
+                    _accumulatedBody = Expression.Block(Expression.Empty());
+                }
+                else
+                {
+                    _accumulatedBody = Expression.Block(_body);
+                }
                 _accumulatedInversion = Expression.Block(Expression.Empty());
             }
             else if (_accumulatedInversion == null && _body.Any())

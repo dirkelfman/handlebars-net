@@ -54,7 +54,23 @@ namespace HandlebarsDotNet.Compiler
 #if netstandard
                 helper = (HandlebarsHelper)helperCall.Method.CreateDelegate(typeof(HandlebarsHelper), target);
 #else
-                helper = (HandlebarsHelper)Delegate.CreateDelegate(typeof(HandlebarsHelper), target, helperCall.Method);
+                try
+                {
+                    helper = (HandlebarsHelper)Delegate.CreateDelegate(typeof(HandlebarsHelper), target, helperCall.Method);
+                }
+                catch
+                {
+                    helper = new HandlebarsHelper((tw, obj, args) =>
+                    {
+                        if (!(obj is BindingContext))
+                        {
+                            obj = new BindingContext(obj, tw as EncodedTextWriter, null, "na");
+
+                        }
+                        helperCall.Method.Invoke(target, new object[] { obj, "concat", args });
+                    });
+                }
+                
 #endif
             }
             else

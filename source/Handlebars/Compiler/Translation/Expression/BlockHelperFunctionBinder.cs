@@ -58,9 +58,7 @@ namespace HandlebarsDotNet.Compiler
                         typeof(HelperOptions).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)[0],
                         body,
                         inversion),
-                Expression.Property(
-                    CompilationContext.BindingContext,
-                    typeof(BindingContext).GetProperty("Value")),
+                CompilationContext.BindingContext,
                 Expression.NewArrayInit(typeof(object), bhex.Arguments)
 #endif
             };

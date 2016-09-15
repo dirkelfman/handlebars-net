@@ -48,7 +48,19 @@ namespace HandlebarsDotNet.Compiler
                     }
                     else
                     {
-                        throw new HandlebarsCompilerException("A partial can only accept 0 or 1 arguments");
+                        var pathExp = arguments[1] as PathExpression;
+                        if ( pathExp != null && pathExp.Path == "this")
+                        {
+                            yield return HandlebarsExpression.Partial(partialName, arguments.Last());
+                        }
+                        else
+                        {
+                            //tbd: merge the multi vals at runtime.
+                            yield return HandlebarsExpression.Partial(partialName, arguments[1]);
+                            //tbd
+                            //throw new HandlebarsCompilerException("A partial can only accept 0 or 1 arguments");
+                        }
+                        
                     }
 
                     yield return enumerator.Current;
